@@ -1,0 +1,16 @@
+package org.jboss.netty.example.discard;
+
+public class echoServer extends SimpleChannelHandler {1
+
+    @Override
+    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {2
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {3
+        e.getCause().printStackTrace();
+        
+        Channel ch = e.getChannel();
+        ch.close();
+    }
+}
