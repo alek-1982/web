@@ -63,17 +63,21 @@ public class echoServer {
 	public static class NettyServer {
 
 		public void startServer() throws Exception {
+			//Acceptor-Connector
 			ChannelFactory factory = new NioServerSocketChannelFactory(
 					Executors.newCachedThreadPool(),
 					Executors.newCachedThreadPool());
 //Create and instance of server bootstrap and bind it to InetSocketAddress
 			ServerBootstrap bootstrap = new ServerBootstrap(factory);
+			
+			//reactor 
 			ChannelPipelineFactory pipelineFactory = new ChannelPipelineFactory() {
 				public ChannelPipeline getPipeline(){
 					return Channels.pipeline(new EchoServerHandler());
 				}
 			};
 			
+			//wrap facade
 			bootstrap.setPipelineFactory(pipelineFactory );
 			
 			bootstrap.setOption("child.tcpNoDelay", true);
