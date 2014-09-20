@@ -35,14 +35,13 @@ public class echoServer {
 		public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
 			//Use channel buffer to get the message from MessageEvent e and copy each character read to a string
 //check for occurence of '\n' or '\r' characters and if yes then print the above string 
-		//	ChannelBuffer buf = (ChannelBuffer) e.getMessage();
-		//    while(buf.readable()) {
-		//        System.out.println((char) buf.readByte());
-		//        System.out.flush();
-		//    }
+			ChannelBuffer buf = (ChannelBuffer) e.getMessage();
+		    while(buf.readable()) {
+		        System.out.println((char) buf.readByte());
+		        System.out.flush();
+		    }
 		    Channel ch = e.getChannel();
 		    ch.write(e.getMessage());
-		    System.out.println("write");
 		}
 
 		@Override
@@ -75,12 +74,6 @@ public class echoServer {
 			};
 			
 			bootstrap.setPipelineFactory(pipelineFactory );
-			
-			bootstrap.setOption("child.tcpNoDelay", true);
-			bootstrap.setOption("chil.keepAlive", false);
-			//ootstrap.unbind(new InetSocketAddress(8080));
-			bootstrap.setOption("reuseAddress", true);
-			bootstrap.bind(new InetSocketAddress(8080));
 		}
 	}
 
